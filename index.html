@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OJOGOONLINE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        header {
+            background-color: #ffcc00;
+            color: black;
+            padding: 20px;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .tabela {
+            background-color: #222;
+            padding: 20px;
+            margin: 15px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
+            cursor: pointer;
+            text-align: center;
+        }
+        .tabela h2 {
+            margin: 0;
+            padding: 15px;
+            background-color: #ffcc00;
+            color: black;
+            border-radius: 10px 10px 0 0;
+        }
+        .resultado {
+            display: none;
+            padding: 10px;
+            text-align: left;
+            margin-top: 10px;
+            background-color: #333;
+            border-radius: 10px;
+        }
+        .emoji {
+            font-size: 20px;
+            margin-right: 5px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            padding: 5px 0;
+        }
+        select, input {
+            padding: 10px;
+            margin: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #ffcc00;
+            color: black;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #ffb200;
+        }
+    </style>
+</head>
+<body>
+    <header>🎰 OJOGOONLINE 🐾</header>
+    <div class="container">
+        <div class="tabela">
+            <h2>FEDERAL</h2>
+            <label for="data-federal">Data:</label>
+            <input type="date" id="data-federal">
+            <label for="hora-federal">Horário:</label>
+            <select id="hora-federal">
+                <option value="19:00">19:00</option>
+            </select>
+            <button onclick="verResultado('federal')">Ver Resultado</button>
+            <div class="resultado" id="resultado-federal"></div>
+        </div>
+
+        <div class="tabela">
+            <h2>RIO</h2>
+            <label for="data-rio">Data:</label>
+            <input type="date" id="data-rio">
+            <label for="hora-rio">Horário:</label>
+            <select id="hora-rio">
+                <option value="10:00">10:00</option>
+                <option value="12:00">12:00</option>
+                <option value="15:00">15:00</option>
+                <option value="18:00">18:00</option>
+                <option value="21:00">21:00</option>
+            </select>
+            <button onclick="verResultado('rio')">Ver Resultado</button>
+            <div class="resultado" id="resultado-rio"></div>
+        </div>
+
+        <div class="tabela">
+            <h2>LOOK/GO</h2>
+            <label for="data-look">Data:</label>
+            <input type="date" id="data-look">
+            <label for="hora-look">Horário:</label>
+            <select id="hora-look">
+                <option value="09:00">09:00</option>
+                <option value="11:00">11:00</option>
+                <option value="14:00">14:00</option>
+                <option value="16:00">16:00</option>
+                <option value="18:00">18:00</option>
+                <option value="21:00">21:00</option>
+            </select>
+            <button onclick="verResultado('look')">Ver Resultado</button>
+            <div class="resultado" id="resultado-look"></div>
+        </div>
+
+        <div class="tabela">
+            <h2>NACIONAL</h2>
+            <label for="data-nacional">Data:</label>
+            <input type="date" id="data-nacional">
+            <label for="hora-nacional">Horário:</label>
+            <select id="hora-nacional">
+                <option value="12:00">12:00</option>
+                <option value="15:00">15:00</option>
+                <option value="18:00">18:00</option>
+                <option value="21:00">21:00</option>
+            </select>
+            <button onclick="verResultado('nacional')">Ver Resultado</button>
+            <div class="resultado" id="resultado-nacional"></div>
+        </div>
+
+        <div class="tabela">
+            <h2>MALUCA/BA</h2>
+            <label for="data-malu">Data:</label>
+            <input type="date" id="data-malu">
+            <label for="hora-malu">Horário:</label>
+            <select id="hora-malu">
+                <option value="10:00">10:00</option>
+                <option value="12:00">12:00</option>
+                <option value="15:00">15:00</option>
+                <option value="19:00">19:00</option>
+                <option value="21:00">21:00</option>
+            </select>
+            <button onclick="verResultado('malu')">Ver Resultado</button>
+            <div class="resultado" id="resultado-malu"></div>
+        </div>
+    </div>
+
+    <script>
+        // Função para buscar resultados do Google Planilhas (simulação)
+        function obterResultado(banca, data, hora) {
+            // Aqui você pode adicionar a lógica para pegar o resultado do Google Planilhas
+            // Vou apenas simular a resposta com um texto genérico de exemplo
+            return `<ul>
+                        <li><strong>Resultado:</strong> ${banca.toUpperCase()} - ${data} - ${hora}</li>
+                        <li><strong>Milhares:</strong> 1234, 5678, 9101, 2345, 6789</li>
+                        <li><strong>Grupos:</strong> 01, 07, 12, 22, 25</li>
+                    </ul>`;
+        }
+
+        // Função para exibir o resultado quando o botão "Ver Resultado" for clicado
+        function verResultado(banca) {
+            const data = document.getElementById(`data-${banca}`).value;
+            const hora = document.getElementById(`hora-${banca}`).value;
+
+            if (!data || !hora) {
+                alert("Por favor, selecione uma data e um horário.");
+                return;
+            }
+
+            const resultadoDiv = document.getElementById(`resultado-${banca}`);
+            const resultado = obterResultado(banca, data, hora);
+
+            resultadoDiv.innerHTML = resultado;
+            resultadoDiv.style.display = "block"; // Exibe o resultado
+        }
+    </script>
+</body>
+</html>
