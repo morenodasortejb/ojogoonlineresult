@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OJOGOONLINE</title>
+    <title>OJOGOONLINE - Painel de Controle</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -33,8 +33,6 @@
             width: 300px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
-            cursor: pointer;
-            text-align: center;
         }
         .tabela h2 {
             margin: 0;
@@ -43,148 +41,183 @@
             color: black;
             border-radius: 10px 10px 0 0;
         }
-        .hora-selecionada {
-            margin-top: 10px;
-        }
-        select {
-            padding: 5px;
-            background-color: #ffcc00;
-            border: none;
-            color: black;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #ffcc00;
-            color: black;
-            font-size: 16px;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #e6b800;
-        }
         #resultados {
             margin-top: 20px;
             text-align: left;
         }
+        .form-container {
+            margin-top: 15px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+            background-color: #ffcc00;
+            border: none;
+            color: black;
+            border-radius: 5px;
+        }
+        .edit-form {
+            display: none; /* Só visível para edição interna */
+        }
+        footer {
+            margin-top: 40px;
+            font-size: 18px;
+            color: white;
+        }
     </style>
 </head>
 <body>
-    <header>🎰 OJOGOONLINE 🐾</header>
+    <header>🎰 OJOGOONLINE 🐾 - Painel de Controle</header>
+
     <div class="container">
+        <!-- Resultados das Loterias (Visíveis para o público) -->
         <div class="tabela">
             <h2>FEDERAL</h2>
-            <div class="hora-selecionada">
-                <label for="horaFederal">Escolha o horário:</label>
-                <select id="horaFederal">
-                    <option value="19:00">19:00</option>
-                </select>
-                <button onclick="buscarResultados('FEDERAL')">Ver Resultado</button>
-            </div>
+            <p id="federal1">1º Prêmio: <span id="federalPrimeiro">1000</span></p>
+            <p id="federal2">2º Prêmio: <span id="federalSegundo">2000</span></p>
+            <p id="federal3">3º Prêmio: <span id="federalTerceiro">3000</span></p>
+            <p id="federal4">4º Prêmio: <span id="federalQuarto">4000</span></p>
+            <p id="federal5">5º Prêmio: <span id="federalQuinto">5000</span></p>
+            <p id="federalHora">Horário: <span id="federalHoraValor">14:00</span></p>
+            <button onclick="exibirFormulario('federal')">Alterar Resultados</button>
         </div>
+
         <div class="tabela">
             <h2>RIO</h2>
-            <div class="hora-selecionada">
-                <label for="horaRio">Escolha o horário:</label>
-                <select id="horaRio">
-                    <option value="11:00">11:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="18:00">18:00</option>
-                    <option value="21:00">21:00</option>
-                </select>
-                <button onclick="buscarResultados('RIO')">Ver Resultado</button>
-            </div>
+            <p id="rio1">1º Prêmio: <span id="rioPrimeiro">1000</span></p>
+            <p id="rio2">2º Prêmio: <span id="rioSegundo">2000</span></p>
+            <p id="rio3">3º Prêmio: <span id="rioTerceiro">3000</span></p>
+            <p id="rio4">4º Prêmio: <span id="rioQuarto">4000</span></p>
+            <p id="rio5">5º Prêmio: <span id="rioQuinto">5000</span></p>
+            <p id="rioHora">Horário: <span id="rioHoraValor">15:00</span></p>
+            <button onclick="exibirFormulario('rio')">Alterar Resultados</button>
         </div>
+
         <div class="tabela">
             <h2>LOOK/GO</h2>
-            <div class="hora-selecionada">
-                <label for="horaLook">Escolha o horário:</label>
-                <select id="horaLook">
-                    <option value="11:00">11:00</option>
-                    <option value="14:00">14:00</option>
-                    <option value="16:00">16:00</option>
-                    <option value="18:00">18:00</option>
-                    <option value="21:00">21:00</option>
-                </select>
-                <button onclick="buscarResultados('LOOK/GO')">Ver Resultado</button>
-            </div>
+            <p id="lookgo1">1º Prêmio: <span id="lookgoPrimeiro">1000</span></p>
+            <p id="lookgo2">2º Prêmio: <span id="lookgoSegundo">2000</span></p>
+            <p id="lookgo3">3º Prêmio: <span id="lookgoTerceiro">3000</span></p>
+            <p id="lookgo4">4º Prêmio: <span id="lookgoQuarto">4000</span></p>
+            <p id="lookgo5">5º Prêmio: <span id="lookgoQuinto">5000</span></p>
+            <p id="lookgoHora">Horário: <span id="lookgoHoraValor">16:00</span></p>
+            <button onclick="exibirFormulario('lookgo')">Alterar Resultados</button>
         </div>
+
         <div class="tabela">
             <h2>NACIONAL</h2>
-            <div class="hora-selecionada">
-                <label for="horaNacional">Escolha o horário:</label>
-                <select id="horaNacional">
-                    <option value="02:00">02:00</option>
-                    <option value="08:00">08:00</option>
-                    <option value="10:00">10:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="17:00">17:00</option>
-                    <option value="19:00">19:00</option>
-                    <option value="22:00">22:00</option>
-                </select>
-                <button onclick="buscarResultados('NACIONAL')">Ver Resultado</button>
-            </div>
+            <p id="nacional1">1º Prêmio: <span id="nacionalPrimeiro">1000</span></p>
+            <p id="nacional2">2º Prêmio: <span id="nacionalSegundo">2000</span></p>
+            <p id="nacional3">3º Prêmio: <span id="nacionalTerceiro">3000</span></p>
+            <p id="nacional4">4º Prêmio: <span id="nacionalQuarto">4000</span></p>
+            <p id="nacional5">5º Prêmio: <span id="nacionalQuinto">5000</span></p>
+            <p id="nacionalHora">Horário: <span id="nacionalHoraValor">17:00</span></p>
+            <button onclick="exibirFormulario('nacional')">Alterar Resultados</button>
         </div>
+
         <div class="tabela">
             <h2>MALUCA/BA</h2>
-            <div class="hora-selecionada">
-                <label for="horaMaluca">Escolha o horário:</label>
-                <select id="horaMaluca">
-                    <option value="10:00">10:00</option>
-                    <option value="12:00">12:00</option>
-                    <option value="15:00">15:00</option>
-                    <option value="19:00">19:00</option>
-                    <option value="21:00">21:00</option>
-                </select>
-                <button onclick="buscarResultados('MALUCA/BA')">Ver Resultado</button>
-            </div>
+            <p id="malucaba1">1º Prêmio: <span id="malucabaPrimeiro">1000</span></p>
+            <p id="malucaba2">2º Prêmio: <span id="malucabaSegundo">2000</span></p>
+            <p id="malucaba3">3º Prêmio: <span id="malucabaTerceiro">3000</span></p>
+            <p id="malucaba4">4º Prêmio: <span id="malucabaQuarto">4000</span></p>
+            <p id="malucaba5">5º Prêmio: <span id="malucabaQuinto">5000</span></p>
+            <p id="malucabaHora">Horário: <span id="malucabaHoraValor">18:00</span></p>
+            <button onclick="exibirFormulario('malucaba')">Alterar Resultados</button>
+        </div>
+
+        <!-- Painel de Controle (Somente visível para você) -->
+        <div class="edit-form" id="federalForm">
+            <h3>Alterar Resultados de FEDERAL</h3>
+            <input type="text" id="inputFederalPrimeiro" placeholder="1º Prêmio" />
+            <input type="text" id="inputFederalSegundo" placeholder="2º Prêmio" />
+            <input type="text" id="inputFederalTerceiro" placeholder="3º Prêmio" />
+            <input type="text" id="inputFederalQuarto" placeholder="4º Prêmio" />
+            <input type="text" id="inputFederalQuinto" placeholder="5º Prêmio" />
+            <input type="text" id="inputFederalHora" placeholder="Horário" />
+            <button onclick="salvarResultados('federal')">Salvar</button>
+            <button onclick="cancelarAlteracao('federal')">Cancelar</button>
+        </div>
+
+        <div class="edit-form" id="rioForm">
+            <h3>Alterar Resultados de RIO</h3>
+            <input type="text" id="inputRioPrimeiro" placeholder="1º Prêmio" />
+            <input type="text" id="inputRioSegundo" placeholder="2º Prêmio" />
+            <input type="text" id="inputRioTerceiro" placeholder="3º Prêmio" />
+            <input type="text" id="inputRioQuarto" placeholder="4º Prêmio" />
+            <input type="text" id="inputRioQuinto" placeholder="5º Prêmio" />
+            <input type="text" id="inputRioHora" placeholder="Horário" />
+            <button onclick="salvarResultados('rio')">Salvar</button>
+            <button onclick="cancelarAlteracao('rio')">Cancelar</button>
+        </div>
+
+        <div class="edit-form" id="lookgoForm">
+            <h3>Alterar Resultados de LOOK/GO</h3>
+            <input type="text" id="inputLookgoPrimeiro" placeholder="1º Prêmio" />
+            <input type="text" id="inputLookgoSegundo" placeholder="2º Prêmio" />
+            <input type="text" id="inputLookgoTerceiro" placeholder="3º Prêmio" />
+            <input type="text" id="inputLookgoQuarto" placeholder="4º Prêmio" />
+            <input type="text" id="inputLookgoQuinto" placeholder="5º Prêmio" />
+            <input type="text" id="inputLookgoHora" placeholder="Horário" />
+            <button onclick="salvarResultados('lookgo')">Salvar</button>
+            <button onclick="cancelarAlteracao('lookgo')">Cancelar</button>
+        </div>
+
+        <div class="edit-form" id="nacionalForm">
+            <h3>Alterar Resultados de NACIONAL</h3>
+            <input type="text" id="inputNacionalPrimeiro" placeholder="1º Prêmio" />
+            <input type="text" id="inputNacionalSegundo" placeholder="2º Prêmio" />
+            <input type="text" id="inputNacionalTerceiro" placeholder="3º Prêmio" />
+            <input type="text" id="inputNacionalQuarto" placeholder="4º Prêmio" />
+            <input type="text" id="inputNacionalQuinto" placeholder="5º Prêmio" />
+            <input type="text" id="inputNacionalHora" placeholder="Horário" />
+            <button onclick="salvarResultados('nacional')">Salvar</button>
+            <button onclick="cancelarAlteracao('nacional')">Cancelar</button>
+        </div>
+
+        <div class="edit-form" id="malucabaForm">
+            <h3>Alterar Resultados de MALUCA/BA</h3>
+            <input type="text" id="inputMalucabaPrimeiro" placeholder="1º Prêmio" />
+            <input type="text" id="inputMalucabaSegundo" placeholder="2º Prêmio" />
+            <input type="text" id="inputMalucabaTerceiro" placeholder="3º Prêmio" />
+            <input type="text" id="inputMalucabaQuarto" placeholder="4º Prêmio" />
+            <input type="text" id="inputMalucabaQuinto" placeholder="5º Prêmio" />
+            <input type="text" id="inputMalucabaHora" placeholder="Horário" />
+            <button onclick="salvarResultados('malucaba')">Salvar</button>
+            <button onclick="cancelarAlteracao('malucaba')">Cancelar</button>
         </div>
     </div>
 
-    <div id="resultados"></div>
+    <footer>
+        <p>Data Atual: <span id="dataAtual"></span></p>
+    </footer>
 
     <script>
-        // Função para obter a data atual no formato YYYY-MM-DD
-        function getDataAtual() {
-            const data = new Date();
-            const ano = data.getFullYear();
-            const mes = (data.getMonth() + 1).toString().padStart(2, '0');
-            const dia = data.getDate().toString().padStart(2, '0');
-            return `${ano}-${mes}-${dia}`;
+        // Exibe a data atual no subtítulo
+        document.getElementById('dataAtual').innerText = new Date().toLocaleDateString('pt-BR');
+
+        function exibirFormulario(loteria) {
+            document.getElementById(loteria + 'Form').style.display = 'block';
         }
 
-        // Função para buscar os resultados
-        function buscarResultados(loteria) {
-            // Corrige o acesso aos selects com IDs dinâmicos
-            var hora = document.getElementById("hora" + loteria.replace("/", "").replace(" ", "")).value;
-            var data = getDataAtual(); // Assumindo que a função 'getDataAtual' está definida corretamente
-            var url = "https://script.google.com/macros/s/AKfycbwd0gyB5T7kIHdfFi5n5ek4UnoHq_jj76aitVW1F8MMHVlZNKTjg64IOdYvxEmpIXHz/exec?data=" + data + "&hora=" + hora;
+        function salvarResultados(loteria) {
+            document.getElementById(loteria + 'Primeiro').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Primeiro').value;
+            document.getElementById(loteria + 'Segundo').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Segundo').value;
+            document.getElementById(loteria + 'Terceiro').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Terceiro').value;
+            document.getElementById(loteria + 'Quarto').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Quarto').value;
+            document.getElementById(loteria + 'Quinto').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Quinto').value;
+            document.getElementById(loteria + 'HoraValor').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Hora').value;
+            document.getElementById(loteria + 'Form').style.display = 'none';
+        }
 
-            fetch(url)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.length > 0) {
-                        var resultadosDiv = document.getElementById("resultados");
-                        resultadosDiv.innerHTML = `
-                            <h3>Resultados para ${loteria} - ${hora} - ${data}:</h3>
-                            <p>1º Prêmio: ${result[0].primeiroPremio}</p>
-                            <p>2º Prêmio: ${result[0].segundoPremio}</p>
-                            <p>3º Prêmio: ${result[0].terceiroPremio}</p>
-                            <p>4º Prêmio: ${result[0].quartoPremio}</p>
-                            <p>5º Prêmio: ${result[0].quintoPremio}</p>
-                        `;
-                    } else {
-                        alert("Resultado não encontrado!");
-                    }
-                })
-                .catch(error => {
-                    console.error("Erro ao buscar resultados:", error);
-                    alert("Erro ao buscar resultados.");
-                });
+        function cancelarAlteracao(loteria) {
+            document.getElementById(loteria + 'Form').style.display = 'none';
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
         }
     </script>
 </body>
