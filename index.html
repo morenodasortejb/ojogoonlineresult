@@ -43,44 +43,31 @@
             color: black;
             border-radius: 10px 10px 0 0;
         }
-        .resultado {
-            display: none;
-            padding: 10px;
-            text-align: left;
+        .hora-selecionada {
             margin-top: 10px;
-            background-color: #333;
-            border-radius: 10px;
         }
-        .emoji {
-            font-size: 20px;
-            margin-right: 5px;
-        }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
-        li {
-            padding: 5px 0;
-        }
-        select, input {
-            padding: 10px;
-            margin: 10px;
-            font-size: 16px;
-            border-radius: 5px;
+        select {
+            padding: 5px;
+            background-color: #ffcc00;
             border: none;
+            color: black;
+            font-size: 16px;
         }
         button {
             padding: 10px 20px;
-            margin: 10px;
             background-color: #ffcc00;
             color: black;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
         }
         button:hover {
-            background-color: #ffb200;
+            background-color: #e6b800;
+        }
+        #resultados {
+            margin-top: 20px;
+            text-align: left;
         }
     </style>
 </head>
@@ -89,108 +76,115 @@
     <div class="container">
         <div class="tabela">
             <h2>FEDERAL</h2>
-            <label for="data-federal">Data:</label>
-            <input type="date" id="data-federal">
-            <label for="hora-federal">Horário:</label>
-            <select id="hora-federal">
-                <option value="19:00">19:00</option>
-            </select>
-            <button onclick="verResultado('federal')">Ver Resultado</button>
-            <div class="resultado" id="resultado-federal"></div>
+            <div class="hora-selecionada">
+                <label for="horaFederal">Escolha o horário:</label>
+                <select id="horaFederal">
+                    <option value="19:00">19:00</option>
+                </select>
+                <button onclick="buscarResultados('FEDERAL')">Ver Resultado</button>
+            </div>
         </div>
-
         <div class="tabela">
             <h2>RIO</h2>
-            <label for="data-rio">Data:</label>
-            <input type="date" id="data-rio">
-            <label for="hora-rio">Horário:</label>
-            <select id="hora-rio">
-                <option value="10:00">10:00</option>
-                <option value="12:00">12:00</option>
-                <option value="15:00">15:00</option>
-                <option value="18:00">18:00</option>
-                <option value="21:00">21:00</option>
-            </select>
-            <button onclick="verResultado('rio')">Ver Resultado</button>
-            <div class="resultado" id="resultado-rio"></div>
+            <div class="hora-selecionada">
+                <label for="horaRio">Escolha o horário:</label>
+                <select id="horaRio">
+                    <option value="11:00">11:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="21:00">21:00</option>
+                </select>
+                <button onclick="buscarResultados('RIO')">Ver Resultado</button>
+            </div>
         </div>
-
         <div class="tabela">
             <h2>LOOK/GO</h2>
-            <label for="data-look">Data:</label>
-            <input type="date" id="data-look">
-            <label for="hora-look">Horário:</label>
-            <select id="hora-look">
-                <option value="09:00">09:00</option>
-                <option value="11:00">11:00</option>
-                <option value="14:00">14:00</option>
-                <option value="16:00">16:00</option>
-                <option value="18:00">18:00</option>
-                <option value="21:00">21:00</option>
-            </select>
-            <button onclick="verResultado('look')">Ver Resultado</button>
-            <div class="resultado" id="resultado-look"></div>
+            <div class="hora-selecionada">
+                <label for="horaLook">Escolha o horário:</label>
+                <select id="horaLook">
+                    <option value="11:00">11:00</option>
+                    <option value="14:00">14:00</option>
+                    <option value="16:00">16:00</option>
+                    <option value="18:00">18:00</option>
+                    <option value="21:00">21:00</option>
+                </select>
+                <button onclick="buscarResultados('LOOK/GO')">Ver Resultado</button>
+            </div>
         </div>
-
         <div class="tabela">
             <h2>NACIONAL</h2>
-            <label for="data-nacional">Data:</label>
-            <input type="date" id="data-nacional">
-            <label for="hora-nacional">Horário:</label>
-            <select id="hora-nacional">
-                <option value="12:00">12:00</option>
-                <option value="15:00">15:00</option>
-                <option value="18:00">18:00</option>
-                <option value="21:00">21:00</option>
-            </select>
-            <button onclick="verResultado('nacional')">Ver Resultado</button>
-            <div class="resultado" id="resultado-nacional"></div>
+            <div class="hora-selecionada">
+                <label for="horaNacional">Escolha o horário:</label>
+                <select id="horaNacional">
+                    <option value="02:00">02:00</option>
+                    <option value="08:00">08:00</option>
+                    <option value="10:00">10:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="17:00">17:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="22:00">22:00</option>
+                </select>
+                <button onclick="buscarResultados('NACIONAL')">Ver Resultado</button>
+            </div>
         </div>
-
         <div class="tabela">
             <h2>MALUCA/BA</h2>
-            <label for="data-malu">Data:</label>
-            <input type="date" id="data-malu">
-            <label for="hora-malu">Horário:</label>
-            <select id="hora-malu">
-                <option value="10:00">10:00</option>
-                <option value="12:00">12:00</option>
-                <option value="15:00">15:00</option>
-                <option value="19:00">19:00</option>
-                <option value="21:00">21:00</option>
-            </select>
-            <button onclick="verResultado('malu')">Ver Resultado</button>
-            <div class="resultado" id="resultado-malu"></div>
+            <div class="hora-selecionada">
+                <label for="horaMaluca">Escolha o horário:</label>
+                <select id="horaMaluca">
+                    <option value="10:00">10:00</option>
+                    <option value="12:00">12:00</option>
+                    <option value="15:00">15:00</option>
+                    <option value="19:00">19:00</option>
+                    <option value="21:00">21:00</option>
+                </select>
+                <button onclick="buscarResultados('MALUCA/BA')">Ver Resultado</button>
+            </div>
         </div>
     </div>
 
+    <div id="resultados"></div>
+
     <script>
-        // Função para buscar resultados do Google Planilhas (simulação)
-        function obterResultado(banca, data, hora) {
-            // Aqui você pode adicionar a lógica para pegar o resultado do Google Planilhas
-            // Vou apenas simular a resposta com um texto genérico de exemplo
-            return `<ul>
-                        <li><strong>Resultado:</strong> ${banca.toUpperCase()} - ${data} - ${hora}</li>
-                        <li><strong>Milhares:</strong> 1234, 5678, 9101, 2345, 6789</li>
-                        <li><strong>Grupos:</strong> 01, 07, 12, 22, 25</li>
-                    </ul>`;
+        // Função para obter a data atual no formato YYYY-MM-DD
+        function getDataAtual() {
+            const data = new Date();
+            const ano = data.getFullYear();
+            const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+            const dia = data.getDate().toString().padStart(2, '0');
+            return `${ano}-${mes}-${dia}`;
         }
 
-        // Função para exibir o resultado quando o botão "Ver Resultado" for clicado
-        function verResultado(banca) {
-            const data = document.getElementById(`data-${banca}`).value;
-            const hora = document.getElementById(`hora-${banca}`).value;
+        // Função para buscar os resultados
+        function buscarResultados(loteria) {
+            // Corrige o acesso aos selects com IDs dinâmicos
+            var hora = document.getElementById("hora" + loteria.replace("/", "").replace(" ", "")).value;
+            var data = getDataAtual(); // Assumindo que a função 'getDataAtual' está definida corretamente
+            var url = "https://script.google.com/macros/s/AKfycbwd0gyB5T7kIHdfFi5n5ek4UnoHq_jj76aitVW1F8MMHVlZNKTjg64IOdYvxEmpIXHz/exec?data=" + data + "&hora=" + hora;
 
-            if (!data || !hora) {
-                alert("Por favor, selecione uma data e um horário.");
-                return;
-            }
-
-            const resultadoDiv = document.getElementById(`resultado-${banca}`);
-            const resultado = obterResultado(banca, data, hora);
-
-            resultadoDiv.innerHTML = resultado;
-            resultadoDiv.style.display = "block"; // Exibe o resultado
+            fetch(url)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.length > 0) {
+                        var resultadosDiv = document.getElementById("resultados");
+                        resultadosDiv.innerHTML = `
+                            <h3>Resultados para ${loteria} - ${hora} - ${data}:</h3>
+                            <p>1º Prêmio: ${result[0].primeiroPremio}</p>
+                            <p>2º Prêmio: ${result[0].segundoPremio}</p>
+                            <p>3º Prêmio: ${result[0].terceiroPremio}</p>
+                            <p>4º Prêmio: ${result[0].quartoPremio}</p>
+                            <p>5º Prêmio: ${result[0].quintoPremio}</p>
+                        `;
+                    } else {
+                        alert("Resultado não encontrado!");
+                    }
+                })
+                .catch(error => {
+                    console.error("Erro ao buscar resultados:", error);
+                    alert("Erro ao buscar resultados.");
+                });
         }
     </script>
 </body>
