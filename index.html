@@ -1,224 +1,272 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OJOGOONLINE - Painel de Controle</title>
+    <title>OJOGOONLINE</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #000;
-            color: white;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            text-align: center;
-        }
-        header {
-            background-color: #ffcc00;
-            color: black;
-            padding: 20px;
-            font-size: 28px;
-            font-weight: bold;
         }
         .container {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .tabela {
-            background-color: #222;
-            padding: 20px;
-            margin: 15px;
-            width: 300px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 204, 0, 0.8);
-        }
-        .tabela h2 {
-            margin: 0;
-            padding: 15px;
-            background-color: #ffcc00;
-            color: black;
-            border-radius: 10px 10px 0 0;
-        }
-        #resultados {
-            margin-top: 20px;
-            text-align: left;
-        }
-        .form-container {
-            margin-top: 15px;
-        }
-        input[type="text"] {
             width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .lottery-section {
+            margin-top: 20px;
+        }
+        .lottery-section h2 {
+            color: #444;
+        }
+        .lottery-section table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .lottery-section table, .lottery-section th, .lottery-section td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .lottery-section th {
+            background-color: #f2f2f2;
+        }
+        .lottery-section td {
+            text-align: center;
+        }
+        .result {
+            font-weight: bold;
+        }
+        .date {
+            font-size: 14px;
+            color: #555;
+        }
+        .back-bar {
+            background-color: #333;
             padding: 10px;
+            text-align: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+        }
+        .back-bar a {
+            color: #fff;
+            text-decoration: none;
             font-size: 16px;
-            margin: 10px 0;
-            background-color: #ffcc00;
-            border: none;
-            color: black;
+        }
+        .button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+
+        /* Estilos do modal flutuante */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            position: relative;
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .modal-content a {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            text-align: center;
+            text-decoration: none;
             border-radius: 5px;
         }
-        .edit-form {
-            display: none; /* Só visível para edição interna */
-        }
-        footer {
-            margin-top: 40px;
-            font-size: 18px;
-            color: white;
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            color: #333;
         }
     </style>
 </head>
 <body>
-    <header>🎰 OJOGOONLINE 🐾 - Painel de Controle</header>
-
-    <div class="container">
-        <!-- Resultados das Loterias (Visíveis para o público) -->
-        <div class="tabela">
-            <h2>FEDERAL</h2>
-            <p id="federal1">1º Prêmio: <span id="federalPrimeiro">1000</span></p>
-            <p id="federal2">2º Prêmio: <span id="federalSegundo">2000</span></p>
-            <p id="federal3">3º Prêmio: <span id="federalTerceiro">3000</span></p>
-            <p id="federal4">4º Prêmio: <span id="federalQuarto">4000</span></p>
-            <p id="federal5">5º Prêmio: <span id="federalQuinto">5000</span></p>
-            <p id="federalHora">Horário: <span id="federalHoraValor">14:00</span></p>
-            <button onclick="exibirFormulario('federal')">Alterar Resultados</button>
-        </div>
-
-        <div class="tabela">
-            <h2>RIO</h2>
-            <p id="rio1">1º Prêmio: <span id="rioPrimeiro">1000</span></p>
-            <p id="rio2">2º Prêmio: <span id="rioSegundo">2000</span></p>
-            <p id="rio3">3º Prêmio: <span id="rioTerceiro">3000</span></p>
-            <p id="rio4">4º Prêmio: <span id="rioQuarto">4000</span></p>
-            <p id="rio5">5º Prêmio: <span id="rioQuinto">5000</span></p>
-            <p id="rioHora">Horário: <span id="rioHoraValor">15:00</span></p>
-            <button onclick="exibirFormulario('rio')">Alterar Resultados</button>
-        </div>
-
-        <div class="tabela">
-            <h2>LOOK/GO</h2>
-            <p id="lookgo1">1º Prêmio: <span id="lookgoPrimeiro">1000</span></p>
-            <p id="lookgo2">2º Prêmio: <span id="lookgoSegundo">2000</span></p>
-            <p id="lookgo3">3º Prêmio: <span id="lookgoTerceiro">3000</span></p>
-            <p id="lookgo4">4º Prêmio: <span id="lookgoQuarto">4000</span></p>
-            <p id="lookgo5">5º Prêmio: <span id="lookgoQuinto">5000</span></p>
-            <p id="lookgoHora">Horário: <span id="lookgoHoraValor">16:00</span></p>
-            <button onclick="exibirFormulario('lookgo')">Alterar Resultados</button>
-        </div>
-
-        <div class="tabela">
-            <h2>NACIONAL</h2>
-            <p id="nacional1">1º Prêmio: <span id="nacionalPrimeiro">1000</span></p>
-            <p id="nacional2">2º Prêmio: <span id="nacionalSegundo">2000</span></p>
-            <p id="nacional3">3º Prêmio: <span id="nacionalTerceiro">3000</span></p>
-            <p id="nacional4">4º Prêmio: <span id="nacionalQuarto">4000</span></p>
-            <p id="nacional5">5º Prêmio: <span id="nacionalQuinto">5000</span></p>
-            <p id="nacionalHora">Horário: <span id="nacionalHoraValor">17:00</span></p>
-            <button onclick="exibirFormulario('nacional')">Alterar Resultados</button>
-        </div>
-
-        <div class="tabela">
-            <h2>MALUCA/BA</h2>
-            <p id="malucaba1">1º Prêmio: <span id="malucabaPrimeiro">1000</span></p>
-            <p id="malucaba2">2º Prêmio: <span id="malucabaSegundo">2000</span></p>
-            <p id="malucaba3">3º Prêmio: <span id="malucabaTerceiro">3000</span></p>
-            <p id="malucaba4">4º Prêmio: <span id="malucabaQuarto">4000</span></p>
-            <p id="malucaba5">5º Prêmio: <span id="malucabaQuinto">5000</span></p>
-            <p id="malucabaHora">Horário: <span id="malucabaHoraValor">18:00</span></p>
-            <button onclick="exibirFormulario('malucaba')">Alterar Resultados</button>
-        </div>
-
-        <!-- Painel de Controle (Somente visível para você) -->
-        <div class="edit-form" id="federalForm">
-            <h3>Alterar Resultados de FEDERAL</h3>
-            <input type="text" id="inputFederalPrimeiro" placeholder="1º Prêmio" />
-            <input type="text" id="inputFederalSegundo" placeholder="2º Prêmio" />
-            <input type="text" id="inputFederalTerceiro" placeholder="3º Prêmio" />
-            <input type="text" id="inputFederalQuarto" placeholder="4º Prêmio" />
-            <input type="text" id="inputFederalQuinto" placeholder="5º Prêmio" />
-            <input type="text" id="inputFederalHora" placeholder="Horário" />
-            <button onclick="salvarResultados('federal')">Salvar</button>
-            <button onclick="cancelarAlteracao('federal')">Cancelar</button>
-        </div>
-
-        <div class="edit-form" id="rioForm">
-            <h3>Alterar Resultados de RIO</h3>
-            <input type="text" id="inputRioPrimeiro" placeholder="1º Prêmio" />
-            <input type="text" id="inputRioSegundo" placeholder="2º Prêmio" />
-            <input type="text" id="inputRioTerceiro" placeholder="3º Prêmio" />
-            <input type="text" id="inputRioQuarto" placeholder="4º Prêmio" />
-            <input type="text" id="inputRioQuinto" placeholder="5º Prêmio" />
-            <input type="text" id="inputRioHora" placeholder="Horário" />
-            <button onclick="salvarResultados('rio')">Salvar</button>
-            <button onclick="cancelarAlteracao('rio')">Cancelar</button>
-        </div>
-
-        <div class="edit-form" id="lookgoForm">
-            <h3>Alterar Resultados de LOOK/GO</h3>
-            <input type="text" id="inputLookgoPrimeiro" placeholder="1º Prêmio" />
-            <input type="text" id="inputLookgoSegundo" placeholder="2º Prêmio" />
-            <input type="text" id="inputLookgoTerceiro" placeholder="3º Prêmio" />
-            <input type="text" id="inputLookgoQuarto" placeholder="4º Prêmio" />
-            <input type="text" id="inputLookgoQuinto" placeholder="5º Prêmio" />
-            <input type="text" id="inputLookgoHora" placeholder="Horário" />
-            <button onclick="salvarResultados('lookgo')">Salvar</button>
-            <button onclick="cancelarAlteracao('lookgo')">Cancelar</button>
-        </div>
-
-        <div class="edit-form" id="nacionalForm">
-            <h3>Alterar Resultados de NACIONAL</h3>
-            <input type="text" id="inputNacionalPrimeiro" placeholder="1º Prêmio" />
-            <input type="text" id="inputNacionalSegundo" placeholder="2º Prêmio" />
-            <input type="text" id="inputNacionalTerceiro" placeholder="3º Prêmio" />
-            <input type="text" id="inputNacionalQuarto" placeholder="4º Prêmio" />
-            <input type="text" id="inputNacionalQuinto" placeholder="5º Prêmio" />
-            <input type="text" id="inputNacionalHora" placeholder="Horário" />
-            <button onclick="salvarResultados('nacional')">Salvar</button>
-            <button onclick="cancelarAlteracao('nacional')">Cancelar</button>
-        </div>
-
-        <div class="edit-form" id="malucabaForm">
-            <h3>Alterar Resultados de MALUCA/BA</h3>
-            <input type="text" id="inputMalucabaPrimeiro" placeholder="1º Prêmio" />
-            <input type="text" id="inputMalucabaSegundo" placeholder="2º Prêmio" />
-            <input type="text" id="inputMalucabaTerceiro" placeholder="3º Prêmio" />
-            <input type="text" id="inputMalucabaQuarto" placeholder="4º Prêmio" />
-            <input type="text" id="inputMalucabaQuinto" placeholder="5º Prêmio" />
-            <input type="text" id="inputMalucabaHora" placeholder="Horário" />
-            <button onclick="salvarResultados('malucaba')">Salvar</button>
-            <button onclick="cancelarAlteracao('malucaba')">Cancelar</button>
-        </div>
+    <!-- Barrinha de Voltar -->
+    <div class="back-bar">
+        <a href="https://morenodasortejb.my.canva.site/ojogoonline">Voltar</a>
     </div>
 
-    <footer>
-        <p>Data Atual: <span id="dataAtual"></span></p>
-    </footer>
+    <div class="container">
+        <h1>OJOGOONLINE</h1>
+        
+        <!-- Exibição da data atual -->
+        <div class="date">
+            <p>Data de hoje: <span id="date"></span></p>
+        </div>
+        
+        <!-- Exibindo os resultados das loterias e a última federal -->
+        <div id="lotteryResults"></div>
 
-    <script>
-        // Exibe a data atual no subtítulo
-        document.getElementById('dataAtual').innerText = new Date().toLocaleDateString('pt-BR');
+        <script>
+            // Atualiza a data atual
+            document.getElementById("date").textContent = new Date().toLocaleDateString('pt-BR');
 
-        function exibirFormulario(loteria) {
-            document.getElementById(loteria + 'Form').style.display = 'block';
-        }
+            // Função para calcular as últimas loterias Federais passadas (última quarta ou sábado)
+            function getLastFederalDrawDate() {
+                let today = new Date();
+                let lastFederalDate = new Date(today); // Copia a data de hoje
 
-        function salvarResultados(loteria) {
-            document.getElementById(loteria + 'Primeiro').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Primeiro').value;
-            document.getElementById(loteria + 'Segundo').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Segundo').value;
-            document.getElementById(loteria + 'Terceiro').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Terceiro').value;
-            document.getElementById(loteria + 'Quarto').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Quarto').value;
-            document.getElementById(loteria + 'Quinto').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Quinto').value;
-            document.getElementById(loteria + 'HoraValor').innerText = document.getElementById('input' + capitalizeFirstLetter(loteria) + 'Hora').value;
-            document.getElementById(loteria + 'Form').style.display = 'none';
-        }
+                // Verifica se hoje é quarta ou sábado, e define a data correta
+                if (today.getDay() === 3) { // Se for quarta-feira (3)
+                    lastFederalDate = new Date(today);
+                } else if (today.getDay() === 6) { // Se for sábado (6)
+                    lastFederalDate = new Date(today);
+                } else {
+                    // Se não for quarta ou sábado, encontra a última quarta ou sábado
+                    let diff = today.getDay() < 3 ? 3 - today.getDay() : 10 - today.getDay(); // Calcular dias até a última quarta ou sábado
+                    lastFederalDate.setDate(today.getDate() - diff);
+                }
 
-        function cancelarAlteracao(loteria) {
-            document.getElementById(loteria + 'Form').style.display = 'none';
-        }
+                // Formata a data para o formato "dd/mm/yyyy"
+                return lastFederalDate.toLocaleDateString('pt-BR');
+            }
 
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-    </script>
+            // Dados dos resultados de cada loteria e horários
+            const results = {
+                'FEDERAL': {
+                    '19:00': { primeiro: '12345', segundo: '67890', terceiro: '11223', quarto: '44556', quinto: '78901', data: getLastFederalDrawDate() }
+                },
+                'RIO': {
+                    '11:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '14:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '16:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '18:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '21:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' }
+                },
+                'LOOK/GO': {
+                    '11:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '14:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '16:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '18:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '21:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' }
+                },
+                'NACIONAL': {
+                    '02:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '08:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '10:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '12:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '15:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '17:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '19:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '22:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' }
+                },
+                'MALUCA/BA': {
+                    '10:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '12:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '14:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '16:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' },
+                    '18:00': { primeiro: '22345', segundo: '33456', terceiro: '44567', quarto: '55678', quinto: '66789' }
+                }
+            };
+
+            // Função para gerar os resultados
+            function generateResults() {
+                let lotteryResultsContainer = document.getElementById('lotteryResults');
+
+                // Gerar a tabela para cada loteria
+                for (let lottery in results) {
+                    let lotterySection = document.createElement('div');
+                    lotterySection.classList.add('lottery-section');
+
+                    let lotteryTitle = document.createElement('h2');
+                    lotteryTitle.textContent = lottery;
+                    lotterySection.appendChild(lotteryTitle);
+
+                    let table = document.createElement('table');
+                    let tableHeader = document.createElement('tr');
+                    tableHeader.innerHTML = `<th>Horário</th><th>1º Prêmio</th><th>2º Prêmio</th><th>3º Prêmio</th><th>4º Prêmio</th><th>5º Prêmio</th>`;
+                    table.appendChild(tableHeader);
+
+                    // Preenche as linhas da tabela com os resultados
+                    for (let time in results[lottery]) {
+                        let row = document.createElement('tr');
+                        row.innerHTML = `<td>${time}</td>
+                                         <td class="result">${results[lottery][time].primeiro}</td>
+                                         <td class="result">${results[lottery][time].segundo}</td>
+                                         <td class="result">${results[lottery][time].terceiro}</td>
+                                         <td class="result">${results[lottery][time].quarto}</td>
+                                         <td class="result">${results[lottery][time].quinto}</td>`;
+                        table.appendChild(row);
+                    }
+
+                    // Exibe a data da última federal
+                    if (lottery === "FEDERAL") {
+                        let lastFederalDate = results[lottery]['19:00'].data;
+                        let federalDateText = `Último resultado: ${lastFederalDate}`;
+                        lotterySection.innerHTML += `<p>${federalDateText}</p>`;
+                    }
+
+                    lotterySection.appendChild(table);
+                    lotteryResultsContainer.appendChild(lotterySection);
+                }
+            }
+
+            // Chama a função para gerar os resultados ao carregar a página
+            generateResults();
+
+            // Função para abrir o modal de "Jogar Agora"
+            function openModal() {
+                document.getElementById('gameModal').style.display = 'block';
+            }
+
+            // Função para fechar o modal
+            function closeModal() {
+                document.getElementById('gameModal').style.display = 'none';
+            }
+        </script>
+
+        <!-- Botão Jogue Agora -->
+        <button class="button" onclick="openModal()">Jogue Agora</button>
+    </div>
+
+    <!-- Modal de Jogo Agora -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">×</span>
+            <a href="https://app.aguiaoficial.com/pr/ZXbjMC6Q" target="_blank">Jogue Agora</a>
+        </div>
+    </div>
 </body>
 </html>
